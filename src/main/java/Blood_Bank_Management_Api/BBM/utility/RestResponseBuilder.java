@@ -2,9 +2,11 @@ package Blood_Bank_Management_Api.BBM.utility;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 
+@Component
 public class RestResponseBuilder {
-    public <T> ResponseEntity<ResponseStructure<T>> sucsess(HttpStatus status, String message, T data){
+    public <T> ResponseEntity<ResponseStructure<T>> success(HttpStatus status, String message, T data){
 return ResponseEntity
         .status(status)
         .body(ResponseStructure.<T>builder()
