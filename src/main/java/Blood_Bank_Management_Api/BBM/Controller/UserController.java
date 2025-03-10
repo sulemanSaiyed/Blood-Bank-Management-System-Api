@@ -1,5 +1,7 @@
 package Blood_Bank_Management_Api.BBM.Controller;
 
+import Blood_Bank_Management_Api.BBM.Request.UserRequest;
+import Blood_Bank_Management_Api.BBM.Response.UserResponse;
 import Blood_Bank_Management_Api.BBM.Service.UserService;
 import Blood_Bank_Management_Api.BBM.entity.User;
 import Blood_Bank_Management_Api.BBM.utility.ResponseStructure;
@@ -19,22 +21,22 @@ public class UserController {
    private final RestResponseBuilder restResponseBuilder;
 
 @PostMapping("/register")
-    public ResponseEntity<ResponseStructure<User>> addUser(@RequestBody User user){
-user=userService.addUser(user);
+    public ResponseEntity<ResponseStructure<UserResponse>> addUser(@RequestBody UserRequest userRequest){
+UserResponse userResponse=userService.addUser(userRequest);
         return restResponseBuilder
-                .success(HttpStatus.CREATED,"user created", user) ;
+                .success(HttpStatus.CREATED,"user created", userResponse) ;
     }
 
     @GetMapping("/users/{userid}")
-    public ResponseEntity<ResponseStructure<User>>findByUserId(@PathVariable  ("userid") int userId) {
-User user= userService.findByUserId(userId);
+    public ResponseEntity<ResponseStructure<UserResponse>>findByUserId(@PathVariable  ("userid") int userId) {
+UserResponse userResponse= userService.findByUserId(userId);
 return restResponseBuilder.
-        success(HttpStatus.FOUND, "User Found", user);
+        success(HttpStatus.FOUND, "User Found", userResponse);
     }
 @PutMapping("/users/{userid}")
-    public ResponseEntity<ResponseStructure<User>>updateUser(@PathVariable ("userid") int userId, @RequestBody User user1) {
-    user1=userService.updateUserById(userId,user1);
-    return restResponseBuilder.success(HttpStatus.OK,"user updated", user1 );
+    public ResponseEntity<ResponseStructure<UserResponse>>updateUser(@PathVariable ("userid") int userId, @RequestBody UserRequest userRequest) {
+    UserResponse userResponse1=userService.updateUserById(userId,userRequest);
+    return restResponseBuilder.success(HttpStatus.OK,"user updated", userResponse1 );
 
 }
 }
