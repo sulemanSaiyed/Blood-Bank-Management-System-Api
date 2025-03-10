@@ -9,7 +9,7 @@ public interface UserService {
     UserResponse addUser(UserRequest userRequest);
     public UserResponse findByUserId(int userId);
 
-    public User updateUserById(int userId, UserRequest userRequest);
+    public UserResponse updateUserById(int userId, UserRequest userRequest);
 
 
 }
