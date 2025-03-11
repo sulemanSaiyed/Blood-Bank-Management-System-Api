@@ -17,9 +17,23 @@ public class UserServiceImpl  implements UserService {
 
 private final UserRepository userRepository;
 
-    @Override
-    public UserResponse addUser(UserRequest userRequest) {
-        User user=User.builder()
+
+
+    private UserResponse mapToUSerResponse(User user) {
+        return UserResponse.builder()
+                .userId(user.getUserId())
+                .userName(user.getUserName())
+                .bloodGroup(user.getBloodGroup())
+                .lastDonatedAt(user.getLastDonatedAt())
+                .age(user.getAge())
+                .gender(user.getGender())
+                .availableCity(user.getAvailableCity())
+                .verified(user.isVerified())
+                .build();
+    }
+
+    private static User mapToUser(UserRequest userRequest) {
+        return User.builder()
                 .userName(userRequest.getUserName())
                 .email(userRequest.getEmail())
                 .age(userRequest.getAge())
@@ -29,33 +43,20 @@ private final UserRepository userRepository;
                 .gender(userRequest.getGender())
                 .phoneNumber(userRequest.getPhoneNumber())
                 .build();
+    }
 
+
+    @Override
+    public UserResponse addUser(UserRequest userRequest) {
+        User user=this.mapToUser(userRequest);
         user=userRepository.save(user);
+        return this.mapToUSerResponse(user);
+    }
 
-        return UserResponse.builder()
-                .userId(user.getUserId())
-                .userName(user.getUserName())
-                .bloodGroup(user.getBloodGroup())
-                .lastDonatedAt(user.getLastDonatedAt())
-                .age(user.getAge())
-                .gender(user.getGender())
-                .availableCity(user.getAvailableCity())
-                .verified(user.isVerified())
-                .build();
- }
     @Override
     public UserResponse findByUserId(int userId ) {
         User user=userRepository.findById(userId).orElseThrow(()->new UserNotFoundExceptionById("user not found"));
-        return UserResponse.builder()
-                .userId(user.getUserId())
-                .userName(user.getUserName())
-                .bloodGroup(user.getBloodGroup())
-                .lastDonatedAt(user.getLastDonatedAt())
-                .age(user.getAge())
-                .gender(user.getGender())
-                .availableCity(user.getAvailableCity())
-                .verified(user.isVerified())
-                .build();
+        return mapToUSerResponse(user);
     }
     @Override
     public UserResponse updateUserById( int userId, UserRequest userRequest){
@@ -74,16 +75,7 @@ private final UserRepository userRepository;
            User updateUser=userRepository.save(user1);
 
 
-            return  UserResponse.builder()
-                    .userId(updateUser.getUserId())
-                    .userName(updateUser.getUserName())
-                    .bloodGroup(updateUser.getBloodGroup())
-                    .lastDonatedAt(updateUser.getLastDonatedAt())
-                    .age(updateUser.getAge())
-                    .gender(updateUser.getGender())
-                    .availableCity(updateUser.getAvailableCity())
-                    .verified(updateUser.isVerified())
-                    .build();
+        return mapToUSerResponse(updateUser);
 
     }
 }
