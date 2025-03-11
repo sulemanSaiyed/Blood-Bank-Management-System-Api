@@ -6,6 +6,7 @@ import Blood_Bank_Management_Api.BBM.Service.UserService;
 import Blood_Bank_Management_Api.BBM.entity.User;
 import Blood_Bank_Management_Api.BBM.utility.ResponseStructure;
 import Blood_Bank_Management_Api.BBM.utility.RestResponseBuilder;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,7 @@ public class UserController {
    private final RestResponseBuilder restResponseBuilder;
 
 @PostMapping("/register")
-    public ResponseEntity<ResponseStructure<UserResponse>> addUser(@RequestBody UserRequest userRequest){
+    public ResponseEntity<ResponseStructure<UserResponse>> addUser( @RequestBody @Valid  UserRequest userRequest){
 UserResponse userResponse=userService.addUser(userRequest);
         return restResponseBuilder
                 .success(HttpStatus.CREATED,"user created", userResponse) ;
