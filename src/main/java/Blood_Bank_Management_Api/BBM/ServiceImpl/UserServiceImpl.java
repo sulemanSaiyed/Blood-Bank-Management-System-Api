@@ -32,23 +32,23 @@ private final UserRepository userRepository;
                 .build();
     }
 
-    private static User mapToUser(UserRequest userRequest) {
-        return User.builder()
-                .userName(userRequest.getUserName())
-                .email(userRequest.getEmail())
-                .age(userRequest.getAge())
-                .password(userRequest.getPassword())
-                .bloodGroup(userRequest.getBloodGroup())
-                .availableCity(userRequest.getAvailableCity())
-                .gender(userRequest.getGender())
-                .phoneNumber(userRequest.getPhoneNumber())
-                .build();
+    private  User mapToUser(UserRequest userRequest , User user1) {
+
+        user1.setUserName(userRequest.getUserName());
+        user1.setPhoneNumber(userRequest.getPhoneNumber());
+        user1.setAge(userRequest.getAge());
+        user1.setEmail(userRequest.getEmail());
+        user1.setPassword(userRequest.getPassword());
+        user1.setBloodGroup(userRequest.getBloodGroup());
+        user1.setGender(userRequest.getGender());
+        user1.setAvailableCity(userRequest.getAvailableCity());
+        return user1;
     }
 
 
     @Override
     public UserResponse addUser(UserRequest userRequest) {
-        User user=this.mapToUser(userRequest);
+        User user=this.mapToUser(userRequest, new User());
         user=userRepository.save(user);
         return this.mapToUSerResponse(user);
     }
@@ -60,22 +60,15 @@ private final UserRepository userRepository;
     }
     @Override
     public UserResponse updateUserById( int userId, UserRequest userRequest){
-        User user1=userRepository.findById(userId)
+        User user2=userRepository.findById(userId)
                 .orElseThrow(()-> new UserNotFoundExceptionById("user not present to update"));
 
 
-            user1.setUserName(userRequest.getUserName());
-            user1.setPhoneNumber(userRequest.getPhoneNumber());
-           user1.setAge(userRequest.getAge());
-         user1.setEmail(userRequest.getEmail());
-           user1.setPassword(userRequest.getPassword());
-            user1.setBloodGroup(userRequest.getBloodGroup());
-            user1.setGender(userRequest.getGender());
-           user1.setAvailableCity(userRequest.getAvailableCity());
-           User updateUser=userRepository.save(user1);
 
+           User user3=this.mapToUser(userRequest, user2);
+        User updatedUser = userRepository.save(user3);
 
-        return mapToUSerResponse(updateUser);
+        return mapToUSerResponse(updatedUser);
 
     }
 }
