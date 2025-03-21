@@ -17,7 +17,8 @@ public class UserExceptionHandler {
     @ExceptionHandler(UserNotFoundExceptionById.class)
 
     //public ResponseEntity<ErrorStructure> handleUserNotFoundById(HttpStatus status, String rootCause, String message)
-    public ResponseEntity<ErrorStructure> handleUserNotFoundById(UserNotFoundExceptionById ex){
+    public <T>ResponseEntity<ErrorStructure<String>> handleUserNotFoundById(UserNotFoundExceptionById ex){
+
         return restResponseBuilder.error(HttpStatus.NOT_FOUND, ex.getMessage(),"user not found by given id");
     }
 }
