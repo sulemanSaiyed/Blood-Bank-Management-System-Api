@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class ErrorStructure {
+public class ErrorStructure <T>{
     private  int status;
-    private String rootCause;
+    private T rootCause;
     private String message;
 }
