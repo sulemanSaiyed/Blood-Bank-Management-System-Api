@@ -18,10 +18,10 @@ return ResponseEntity
 
                 .build());
     }
-    public ResponseEntity<ErrorStructure>error(HttpStatus status, String rootCause, String message){
+    public <T>ResponseEntity<ErrorStructure<T>>error(HttpStatus status, T rootCause, String message){
         return  ResponseEntity
                 .status(status)
-                .body(ErrorStructure.builder()
+                .body(ErrorStructure.<T>builder()
                         .status(status.value())
                         .rootCause(rootCause)
                         .message(message)
