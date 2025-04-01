@@ -4,6 +4,6 @@ import Blood_Bank_Management_Api.BBM.entity.Hospital;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
+
 public interface HospitalRepository extends JpaRepository<Hospital, Integer > {
 }
