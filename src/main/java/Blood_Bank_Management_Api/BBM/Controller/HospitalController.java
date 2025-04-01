@@ -24,12 +24,12 @@ public class HospitalController {
 HospitalResponse hospitalResponse=hospitalService.addHospital(hospitalRequest);
 return restResponseBuilder.success(HttpStatus.CREATED, "Hospital added", hospitalResponse);
 }
-@GetMapping("/hositals/{hospitalId}")
+@GetMapping("/hospitals/{hospitalId}")
     public ResponseEntity<ResponseStructure<HospitalResponse>>getHospital(@PathVariable ("hospitalId") int hospitalId){
     HospitalResponse hospitalResponse=hospitalService.findByHospitalId(hospitalId);
     return  restResponseBuilder.success(HttpStatus.FOUND, "Hospital found", hospitalResponse);
 }
-    @PutMapping("/hositals/{hospitalId}")
+    @PutMapping("/hospitals/{hospitalId}")
     public ResponseEntity<ResponseStructure<HospitalResponse>>updateHospital(@PathVariable  ("hospitalId")  int hospitalId, @RequestBody @Valid HospitalRequest hospitalRequest){
         HospitalResponse hospitalResponse=hospitalService.updateByHospitalId(hospitalId, hospitalRequest);
         return  restResponseBuilder.success(HttpStatus.OK, "Hospital updated", hospitalResponse);
