@@ -21,7 +21,7 @@ public class UserController {
    private final UserService userService;
    private final RestResponseBuilder restResponseBuilder;
 
-@PostMapping("/register")
+@PostMapping("/users")
     public ResponseEntity<ResponseStructure<UserResponse>> addUser( @RequestBody @Valid  UserRequest userRequest){
 UserResponse userResponse=userService.addUser(userRequest);
         return restResponseBuilder
@@ -35,7 +35,7 @@ return restResponseBuilder.
         success(HttpStatus.FOUND, "User Found", userResponse);
     }
 @PutMapping("/users/{userid}")
-    public ResponseEntity<ResponseStructure<UserResponse>>updateUser(@PathVariable ("userid") int userId, @RequestBody UserRequest userRequest) {
+    public ResponseEntity<ResponseStructure<UserResponse>>updateUser(@PathVariable ("userid") int userId, @RequestBody @Valid UserRequest userRequest) {
     UserResponse userResponse1=userService.updateUserById(userId,userRequest);
     return restResponseBuilder.success(HttpStatus.OK,"user updated", userResponse1 );
 
