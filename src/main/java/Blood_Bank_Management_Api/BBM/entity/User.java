@@ -1,11 +1,10 @@
 package Blood_Bank_Management_Api.BBM.entity;
 import Blood_Bank_Management_Api.BBM.enums.BloodGroup;
 import Blood_Bank_Management_Api.BBM.enums.Gender;
-import jakarta.persistence.Entity;
+import Blood_Bank_Management_Api.BBM.enums.Role;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,5 +32,8 @@ public class User {
     private int age;
     private BloodGroup bloodGroup;
     private Gender gender;
-
+    private Role role;
+@OneToOne(mappedBy = "user",fetch = FetchType.EAGER)
+@JsonBackReference
+    private Admin admin;
 }
