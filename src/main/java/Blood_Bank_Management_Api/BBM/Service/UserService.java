@@ -6,7 +6,7 @@ import Blood_Bank_Management_Api.BBM.entity.User;
 
 public interface UserService {
 
-    UserResponse addUser(UserRequest userRequest);
+    public UserResponse addUser(UserRequest userRequest);
     public UserResponse findByUserId(int userId);
 
     public UserResponse updateUserById(int userId, UserRequest userRequest);
