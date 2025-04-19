@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class BloodBankResponse {
 
     private int bankId;
-    private String name;
+    private String bankName;
     private int emergencyUnitCount;
 }

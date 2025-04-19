@@ -3,6 +3,7 @@ package Blood_Bank_Management_Api.BBM.Response;
 
 import Blood_Bank_Management_Api.BBM.enums.BloodGroup;
 import Blood_Bank_Management_Api.BBM.enums.Gender;
+import Blood_Bank_Management_Api.BBM.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,6 +25,6 @@ public class UserResponse {
     private Gender gender;
     private String availableCity;
     private boolean verified;
-
+private Role role;
 
 }
