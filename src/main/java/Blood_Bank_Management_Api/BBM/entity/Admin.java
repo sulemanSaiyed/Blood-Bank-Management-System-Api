@@ -1,5 +1,6 @@
 package Blood_Bank_Management_Api.BBM.entity;
 
+import Blood_Bank_Management_Api.BBM.enums.AdminType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,9 +22,7 @@ public class Admin {
     @OneToOne
     private User user;
 
-    @ManyToOne
-    private BloodBank bloodBank;
 
-    @ManyToOne
-    private Hospital hospital;
+    @Enumerated(EnumType.STRING)
+    private AdminType adminType;
 }
