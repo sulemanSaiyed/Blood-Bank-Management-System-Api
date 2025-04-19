@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
-public class AdminController {
+public class  AdminController {
 
     private final AdminService adminService;
     private final RestResponseBuilder responseBuilder;
