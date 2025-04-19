@@ -2,11 +2,12 @@ package Blood_Bank_Management_Api.BBM.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-
+@Builder
 @Entity
 @Data
 @NoArgsConstructor
@@ -17,7 +18,7 @@ public class BloodBank {
 
     private int bankId;
 
-    private String name;
+    private String bankName;
     private int emergencyUnitCount;
 
     @OneToMany
