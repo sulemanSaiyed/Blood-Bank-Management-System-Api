@@ -1,6 +1,8 @@
 package Blood_Bank_Management_Api.BBM.Controller;
 
+import Blood_Bank_Management_Api.BBM.Request.BloodBankRequest;
 import Blood_Bank_Management_Api.BBM.Request.HospitalRequest;
+import Blood_Bank_Management_Api.BBM.Response.BloodBankResponse;
 import Blood_Bank_Management_Api.BBM.Response.HospitalResponse;
 import Blood_Bank_Management_Api.BBM.Response.UserResponse;
 import Blood_Bank_Management_Api.BBM.Service.HospitalService;
@@ -34,5 +36,9 @@ return restResponseBuilder.success(HttpStatus.CREATED, "Hospital added", hospita
         HospitalResponse hospitalResponse=hospitalService.updateByHospitalId(hospitalId, hospitalRequest);
         return  restResponseBuilder.success(HttpStatus.OK, "Hospital updated", hospitalResponse);
     }
-
+    @PostMapping("/hospitals-admin/{adminId}")
+    public ResponseEntity<ResponseStructure<HospitalResponse>> addAdminBank(@RequestBody HospitalRequest hospitalRequest, @PathVariable int adminId){
+        HospitalResponse hospitalResponse = hospitalService.addAdminHospital(hospitalRequest, adminId);
+        return restResponseBuilder.success(HttpStatus.CREATED, "Blood Bank Admin Created", hospitalResponse);
+    }
 }
