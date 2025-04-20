@@ -1,13 +1,12 @@
 package Blood_Bank_Management_Api.BBM.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Builder
 @AllArgsConstructor
@@ -20,4 +19,6 @@ public class Hospital {
     private  int hospitalId;
     private String hospitalName;
 
+    @OneToMany
+    private List<Admin> admin;
 }
