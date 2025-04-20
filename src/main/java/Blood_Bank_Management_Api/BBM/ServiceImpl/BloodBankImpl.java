@@ -80,7 +80,7 @@ return mapToBloodABnkResponse(updateBloodbank);
 
         fetchedadmin.setAdminType(AdminType.OWNER);
         bloodBankRepository.save(bloodBank);
-        return mapToBloodABnkResponse(bloodBank);
+        return this.mapToBloodABnkResponse(bloodBank);
 }
 
     }
