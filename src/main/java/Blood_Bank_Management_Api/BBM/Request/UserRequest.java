@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -20,4 +22,5 @@ public class UserRequest {
     private int age;
     private Gender gender;
     private String availableCity;
+    private LocalDate lastDonatedAt;
 }
