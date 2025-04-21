@@ -4,8 +4,13 @@ import Blood_Bank_Management_Api.BBM.Exception.UserNotFoundExceptionById;
 import Blood_Bank_Management_Api.BBM.Request.UserRequest;
 import Blood_Bank_Management_Api.BBM.Response.UserResponse;
 import Blood_Bank_Management_Api.BBM.Service.UserService;
+import Blood_Bank_Management_Api.BBM.entity.Admin;
 import Blood_Bank_Management_Api.BBM.entity.User;
+import Blood_Bank_Management_Api.BBM.enums.AdminType;
+import Blood_Bank_Management_Api.BBM.enums.Role;
+import Blood_Bank_Management_Api.BBM.repository.AdminRepositry;
 import Blood_Bank_Management_Api.BBM.repository.UserRepository;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +21,7 @@ import java.util.Optional;
 public class UserServiceImpl  implements UserService {
 
 private final UserRepository userRepository;
+private final AdminRepositry adminRepositry;
 
 
 
@@ -71,4 +77,6 @@ private final UserRepository userRepository;
         return mapToUSerResponse(updatedUser);
 
     }
+
+
 }
