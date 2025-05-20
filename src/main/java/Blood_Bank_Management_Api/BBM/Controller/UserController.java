@@ -40,6 +40,11 @@ return restResponseBuilder.
     return restResponseBuilder.success(HttpStatus.OK,"user updated", userResponse1 );
 
 }
+    @PostMapping("/register-admin")
+    public ResponseEntity<ResponseStructure<UserResponse>> addUserAsAdmin(@RequestBody UserRequest userRequest){
+        UserResponse userResponse = userService.addUserAsAdmin(userRequest);
+        return restResponseBuilder.success(HttpStatus.CREATED, "User Created", userResponse);
+    }
 }
 
 

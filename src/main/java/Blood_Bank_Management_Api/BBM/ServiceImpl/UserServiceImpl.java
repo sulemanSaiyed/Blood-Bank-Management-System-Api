@@ -12,6 +12,7 @@ import Blood_Bank_Management_Api.BBM.repository.AdminRepositry;
 import Blood_Bank_Management_Api.BBM.repository.UserRepository;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -22,6 +23,7 @@ public class UserServiceImpl  implements UserService {
 
 private final UserRepository userRepository;
 private final AdminRepositry adminRepositry;
+private  final PasswordEncoder passwordEncoder;
 
 
 
@@ -76,6 +78,22 @@ private final AdminRepositry adminRepositry;
 
         return mapToUSerResponse(updatedUser);
 
+    }
+
+    @Override
+    public UserResponse addUserAsAdmin(UserRequest userRequest) {
+        User user = this.mapToUser(userRequest, new User());
+        user.setRole(Role.ADMIN);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user = userRepository.save(user);
+
+        UserResponse userResponse = this.mapToUSerResponse(user);
+        Admin admin = Admin.builder()
+                .user(user)
+                .adminType(AdminType.valueOf("OWNER"))
+                .build();
+        adminRepositry.save(admin);
+        return userResponse;
     }
 
 
