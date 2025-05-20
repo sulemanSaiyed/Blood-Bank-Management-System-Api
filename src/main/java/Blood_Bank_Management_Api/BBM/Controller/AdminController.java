@@ -22,9 +22,9 @@ public class  AdminController {
     private final RestResponseBuilder responseBuilder;
 
     @PostMapping("/admins/{userId}")
-    public ResponseEntity<ResponseStructure<AdminResponse>> promoteUserToAdmin(@RequestBody UserRequest userRequest, @PathVariable int userId) {
-        UserResponse userResponse = adminService.promoteUserToAdmin(userRequest,userId);
-        return responseBuilder.success(HttpStatus.CREATED, "Admin Created", userResponse);
+    public ResponseEntity<ResponseStructure<AdminResponse>> promoteUserToAdmin( @PathVariable int userId) {
+        AdminResponse adminResponse = adminService.promoteUserToAdmin(userId);
+        return responseBuilder.success(HttpStatus.CREATED, "Admin Created", adminResponse);
 
     }
 

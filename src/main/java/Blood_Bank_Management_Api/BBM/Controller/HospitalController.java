@@ -37,7 +37,7 @@ return restResponseBuilder.success(HttpStatus.CREATED, "Hospital added", hospita
         return  restResponseBuilder.success(HttpStatus.OK, "Hospital updated", hospitalResponse);
     }
     @PostMapping("/hospitals-admin/{adminId}")
-    public ResponseEntity<ResponseStructure<HospitalResponse>> addAdminBank(@RequestBody HospitalRequest hospitalRequest, @PathVariable int adminId){
+    public ResponseEntity<ResponseStructure<HospitalResponse>> addAdminHospital(@RequestBody HospitalRequest hospitalRequest, @PathVariable int adminId){
         HospitalResponse hospitalResponse = hospitalService.addAdminHospital(hospitalRequest, adminId);
         return restResponseBuilder.success(HttpStatus.CREATED, "Blood Bank Admin Created", hospitalResponse);
     }

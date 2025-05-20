@@ -12,6 +12,6 @@ public interface UserService {
 
     public UserResponse updateUserById(int userId, UserRequest userRequest);
 
-
+//UserResponse addUserAsAdmin(@Valid UserRequest userRequest);
 }
   
