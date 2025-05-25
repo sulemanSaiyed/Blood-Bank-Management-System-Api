@@ -37,6 +37,7 @@ private  final PasswordEncoder passwordEncoder;
                 .gender(user.getGender())
                 .availableCity(user.getAvailableCity())
                 .verified(user.isVerified())
+                .role(user.getRole())
                 .build();
     }
 
@@ -57,6 +58,8 @@ private  final PasswordEncoder passwordEncoder;
     @Override
     public UserResponse addUser(UserRequest userRequest) {
         User user=this.mapToUser(userRequest, new User());
+        user.setRole(Role.USER);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user=userRepository.save(user);
         return this.mapToUSerResponse(user);
     }

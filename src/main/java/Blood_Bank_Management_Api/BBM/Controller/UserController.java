@@ -21,7 +21,7 @@ public class UserController {
    private final UserService userService;
    private final RestResponseBuilder restResponseBuilder;
 
-@PostMapping("/users")
+@PostMapping("/registerUsers")
     public ResponseEntity<ResponseStructure<UserResponse>> addUser( @RequestBody @Valid  UserRequest userRequest){
 UserResponse userResponse=userService.addUser(userRequest);
         return restResponseBuilder

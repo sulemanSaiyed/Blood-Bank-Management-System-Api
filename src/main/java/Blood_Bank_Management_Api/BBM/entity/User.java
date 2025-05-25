@@ -17,6 +17,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Entity
 @Data
+
 public class User {
 
     @Id
@@ -30,8 +31,11 @@ public class User {
     private boolean verified;
     private LocalDate lastDonatedAt;
     private int age;
+    @Enumerated(EnumType.STRING)
     private BloodGroup bloodGroup;
+    @Enumerated(EnumType.STRING)
     private Gender gender;
+    @Enumerated(EnumType.STRING)
     private Role role;
 @OneToOne(mappedBy = "user",fetch = FetchType.EAGER)
 @JsonBackReference
