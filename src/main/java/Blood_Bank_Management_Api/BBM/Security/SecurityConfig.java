@@ -23,7 +23,7 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         return http.csrf(csrf-> csrf.disable())
                 .authorizeHttpRequests(authorize ->
-                        authorize.requestMatchers("registerUsers","/register","/blood-banks")
+                        authorize.requestMatchers("registerUsers","/register","/blood-banks" , "/users/*", "/register-admin")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated()
