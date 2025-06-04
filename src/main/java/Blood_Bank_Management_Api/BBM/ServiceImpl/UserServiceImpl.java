@@ -53,6 +53,7 @@ private  final PasswordEncoder passwordEncoder;
         user1.setBloodGroup(userRequest.getBloodGroup());
         user1.setGender(userRequest.getGender());
         user1.setAvailableCity(userRequest.getAvailableCity());
+        user1.setLastDonatedAt(userRequest.getLastDonatedAt());
         return user1;
     }
 

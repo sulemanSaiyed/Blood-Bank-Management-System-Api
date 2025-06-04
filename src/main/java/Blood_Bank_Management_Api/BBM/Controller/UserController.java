@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @RestController
 @AllArgsConstructor
 
@@ -51,7 +53,12 @@ return restResponseBuilder.
     @PatchMapping("/users/{userId}")
     public ResponseEntity<ResponseStructure<UserResponse>> verifyStatus(@PathVariable int userId, @RequestParam boolean isVerified) {
         UserResponse userResponse = userService.verifyStatus(userId, isVerified);
-        return responseBuilder.success(HttpStatus.OK,"Status Updated", userResponse);
+        return restResponseBuilder.success(HttpStatus.OK,"Status Updated", userResponse);
+    }
+    @PatchMapping("/users-lastDonate")
+    public ResponseEntity<ResponseStructure<UserResponse>> updateLastDonatedAt(@RequestParam LocalDate lastDonatedAt){
+        UserResponse userResponse = userService.lastDonatedAt(lastDonatedAt);
+        return restResponseBuilder.success(HttpStatus.OK,"Last Donated Date Updated", userResponse);
     }
 }
 
