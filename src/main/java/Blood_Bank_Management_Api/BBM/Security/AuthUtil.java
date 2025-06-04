@@ -15,7 +15,7 @@ public class AuthUtil {
         return SecurityContextHolder.getContext().getAuthentication().getName();
 
     }
-    public User getUserName(){
+    public User getCurrentUser(){
         return userRepository.findByEmail(this.getCurrentUserName())
                 .orElseThrow(()->new UsernameNotFoundException("failed r=to find to user"));
 

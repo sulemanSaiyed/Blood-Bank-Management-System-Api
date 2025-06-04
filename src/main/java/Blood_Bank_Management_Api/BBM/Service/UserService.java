@@ -8,10 +8,11 @@ import jakarta.validation.Valid;
 public interface UserService {
 
     public UserResponse addUser(UserRequest userRequest);
-    public UserResponse findByUserId(int userId);
+    public UserResponse findByUserId();
 
-    public UserResponse updateUserById(int userId, UserRequest userRequest);
+    public UserResponse updateUserById(UserRequest userRequest);
 
 UserResponse addUserAsAdmin(@Valid UserRequest userRequest);
+    UserResponse verifyStatus(int userId, boolean isVerified);
 }
   

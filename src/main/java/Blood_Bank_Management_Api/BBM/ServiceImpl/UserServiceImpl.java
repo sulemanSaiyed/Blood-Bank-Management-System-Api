@@ -3,6 +3,7 @@ package Blood_Bank_Management_Api.BBM.ServiceImpl;
 import Blood_Bank_Management_Api.BBM.Exception.UserNotFoundExceptionById;
 import Blood_Bank_Management_Api.BBM.Request.UserRequest;
 import Blood_Bank_Management_Api.BBM.Response.UserResponse;
+import Blood_Bank_Management_Api.BBM.Security.AuthUtil;
 import Blood_Bank_Management_Api.BBM.Service.UserService;
 import Blood_Bank_Management_Api.BBM.entity.Admin;
 import Blood_Bank_Management_Api.BBM.entity.User;
@@ -26,6 +27,7 @@ private final AdminRepositry adminRepositry;
 private  final PasswordEncoder passwordEncoder;
 
 
+    private final AuthUtil authUtil;
 
     private UserResponse mapToUSerResponse(User user) {
         return UserResponse.builder()
@@ -65,18 +67,15 @@ private  final PasswordEncoder passwordEncoder;
     }
 
     @Override
-    public UserResponse findByUserId(int userId ) {
-        User user=userRepository.findById(userId).orElseThrow(()->new UserNotFoundExceptionById("user not found"));
+    public UserResponse findByUserId() {
+        User user = authUtil.getCurrentUser();
         return mapToUSerResponse(user);
     }
     @Override
-    public UserResponse updateUserById( int userId, UserRequest userRequest){
-        User user2=userRepository.findById(userId)
-                .orElseThrow(()-> new UserNotFoundExceptionById("user not present to update"));
+    public UserResponse updateUserById(UserRequest userRequest) {
+        User exuser = authUtil.getCurrentUser();
 
-
-
-           User user3=this.mapToUser(userRequest, user2);
+           User user3=this.mapToUser(userRequest, exuser);
         User updatedUser = userRepository.save(user3);
 
         return mapToUSerResponse(updatedUser);
@@ -86,18 +85,25 @@ private  final PasswordEncoder passwordEncoder;
     @Override
     public UserResponse addUserAsAdmin(UserRequest userRequest) {
         User user = this.mapToUser(userRequest, new User());
-        user.setRole(Role.ADMIN);
+        user.setRole(Role.OWNER_ADMIN);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user = userRepository.save(user);
 
         UserResponse userResponse = this.mapToUSerResponse(user);
         Admin admin = Admin.builder()
                 .user(user)
-                .adminType(AdminType.valueOf("OWNER"))
+
                 .build();
         adminRepositry.save(admin);
         return userResponse;
     }
-
+    @Override
+    public UserResponse verifyStatus(int userId, boolean status) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(()-> new UserNotFoundExceptionById("Failed to find the user"));
+        user.setVerified(status);
+        userRepository.save(user);
+        return this.mapToUSerResponse(user);
+    }
 
 }
