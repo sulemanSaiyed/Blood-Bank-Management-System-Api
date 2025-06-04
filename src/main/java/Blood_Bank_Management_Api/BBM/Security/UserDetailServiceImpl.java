@@ -24,7 +24,9 @@ private final UserRepository userRepository;
         return org.springframework.security.core.userdetails.User.builder()
                 .username(user.getEmail())
                 .password(user.getPassword())
-                .authorities(user.getRole().name())
+                .authorities(user.getRole().name()) //updating userDetailServiceImpl class give authorities to user to access the data based on their roles accordingly
                 .build();
     }
 }
+
+
