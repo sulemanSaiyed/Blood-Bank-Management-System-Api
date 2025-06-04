@@ -28,14 +28,14 @@ public class AdminServiceImpl implements AdminService {
     public AdminResponse promoteUserToAdmin(int userId){
 
     User existUser = userRepository.findById(userId).orElseThrow(()-> new UserNotFoundExceptionById("user not found"));
+  existUser.setRole(Role.GUEST_ADMIN);
+    userRepository.save(existUser);
+
 Admin admin=Admin.builder()
-                .adminType(AdminType.OWNER)
+        .user(existUser)
                         .build();
 Admin savedAdmin=adminRepositry.save(admin);
-existUser.setRole(Role.ADMIN);
-existUser.setAdmin(savedAdmin);
-savedAdmin.setUser(existUser);
-userRepository.save(existUser);
+
 
     return AdminResponse.builder()
             .adminId(savedAdmin.getAdminId())

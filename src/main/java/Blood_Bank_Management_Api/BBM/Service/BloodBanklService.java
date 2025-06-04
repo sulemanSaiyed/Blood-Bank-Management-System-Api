@@ -3,7 +3,6 @@ package Blood_Bank_Management_Api.BBM.Service;
 import Blood_Bank_Management_Api.BBM.Request.BloodBankRequest;
 import Blood_Bank_Management_Api.BBM.Response.BloodBankResponse;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 

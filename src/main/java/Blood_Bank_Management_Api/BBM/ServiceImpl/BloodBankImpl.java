@@ -78,7 +78,7 @@ return mapToBloodABnkResponse(updateBloodbank);
                 .emergencyUnitCount(bloodBankRequest.getEmergencyUnitCount())
                 .build();
 
-        fetchedadmin.setAdminType(AdminType.OWNER);
+
         bloodBankRepository.save(bloodBank);
         return this.mapToBloodABnkResponse(bloodBank);
 }

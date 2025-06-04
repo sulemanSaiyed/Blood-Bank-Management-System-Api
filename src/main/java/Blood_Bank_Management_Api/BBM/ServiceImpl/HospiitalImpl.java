@@ -71,7 +71,7 @@ Hospital hospital=Hospital.builder()
         .hospitalName(hospitalRequest.getHospitalName())
 
         .build();
-admin.setAdminType(AdminType.OWNER);
+
         hospital=hospitalRepository.save(hospital);
         return this.mapToHospitalResponse(hospital);
 
