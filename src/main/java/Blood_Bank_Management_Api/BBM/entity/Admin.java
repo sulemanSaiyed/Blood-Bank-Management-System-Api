@@ -22,7 +22,7 @@ public class Admin {
     @OneToOne
     private User user;
 
-
-    @Enumerated(EnumType.STRING)
-    private AdminType adminType;
+//
+//    @Enumerated(EnumType.STRING)
+//    private AdminType adminType;
 }
