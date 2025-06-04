@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -28,15 +29,15 @@ UserResponse userResponse=userService.addUser(userRequest);
                 .success(HttpStatus.CREATED,"user created", userResponse) ;
     }
 
-    @GetMapping("/users/{userid}")
-    public ResponseEntity<ResponseStructure<UserResponse>>findByUserId(@PathVariable  ("userid") int userId) {
-UserResponse userResponse= userService.findByUserId(userId);
+    @GetMapping("/users")
+    public ResponseEntity<ResponseStructure<UserResponse>> findUserById(){
+        UserResponse userResponse = userService.findByUserId();
 return restResponseBuilder.
         success(HttpStatus.FOUND, "User Found", userResponse);
     }
-@PutMapping("/users/{userid}")
-    public ResponseEntity<ResponseStructure<UserResponse>>updateUser(@PathVariable ("userid") int userId, @RequestBody @Valid UserRequest userRequest) {
-    UserResponse userResponse1=userService.updateUserById(userId,userRequest);
+    @PutMapping("/users")
+    public ResponseEntity<ResponseStructure<UserResponse>> updateUser(@RequestBody @Valid UserRequest userRequest){
+        UserResponse userResponse = userService.updateUserById(userRequest);
     return restResponseBuilder.success(HttpStatus.OK,"user updated", userResponse1 );
 
 }
@@ -44,6 +45,13 @@ return restResponseBuilder.
     public ResponseEntity<ResponseStructure<UserResponse>> addUserAsAdmin(@RequestBody UserRequest userRequest){
         UserResponse userResponse = userService.addUserAsAdmin(userRequest);
         return restResponseBuilder.success(HttpStatus.CREATED, "User Created", userResponse);
+    }
+
+    @PreAuthorize("hasAnyAuthority('OWNER_ADMIN') || hasAnyAuthority('OWNER_ADMIN')")
+    @PatchMapping("/users/{userId}")
+    public ResponseEntity<ResponseStructure<UserResponse>> verifyStatus(@PathVariable int userId, @RequestParam boolean isVerified) {
+        UserResponse userResponse = userService.verifyStatus(userId, isVerified);
+        return responseBuilder.success(HttpStatus.OK,"Status Updated", userResponse);
     }
 }
 
