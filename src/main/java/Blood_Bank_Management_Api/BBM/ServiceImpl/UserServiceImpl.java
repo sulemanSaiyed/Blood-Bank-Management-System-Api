@@ -16,6 +16,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
@@ -107,4 +108,11 @@ private  final PasswordEncoder passwordEncoder;
         return this.mapToUSerResponse(user);
     }
 
+    @Override
+    public UserResponse lastDonatedAt(LocalDate lastDonatedAt) {
+        User user = authUtil.getCurrentUser();
+        user.setLastDonatedAt(lastDonatedAt);
+        User updatedUser = userRepository.save(user);
+        return this.mapToUSerResponse(updatedUser);
+    }
 }

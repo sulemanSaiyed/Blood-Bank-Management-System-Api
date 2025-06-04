@@ -5,6 +5,8 @@ import Blood_Bank_Management_Api.BBM.Response.UserResponse;
 import Blood_Bank_Management_Api.BBM.entity.User;
 import jakarta.validation.Valid;
 
+import java.time.LocalDate;
+
 public interface UserService {
 
     public UserResponse addUser(UserRequest userRequest);
@@ -14,5 +16,7 @@ public interface UserService {
 
 UserResponse addUserAsAdmin(@Valid UserRequest userRequest);
     UserResponse verifyStatus(int userId, boolean isVerified);
+
+    UserResponse lastDonatedAt(LocalDate lastDonatedAt);
 }
   
