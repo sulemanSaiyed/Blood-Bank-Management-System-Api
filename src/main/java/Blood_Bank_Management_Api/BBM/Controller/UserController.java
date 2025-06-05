@@ -40,7 +40,7 @@ return restResponseBuilder.
     @PutMapping("/users")
     public ResponseEntity<ResponseStructure<UserResponse>> updateUser(@RequestBody @Valid UserRequest userRequest){
         UserResponse userResponse = userService.updateUserById(userRequest);
-    return restResponseBuilder.success(HttpStatus.OK,"user updated", userResponse1 );
+    return restResponseBuilder.success(HttpStatus.OK,"user updated", userResponse );
 
 }
     @PostMapping("/register-admin")

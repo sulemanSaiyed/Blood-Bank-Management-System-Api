@@ -40,4 +40,6 @@ public class User {
 @OneToOne(mappedBy = "user",fetch = FetchType.EAGER)
 
     private Admin admin;
+    @OneToOne
+    private Address address;
 }
