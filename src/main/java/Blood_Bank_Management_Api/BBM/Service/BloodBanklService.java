@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface BloodBanklService {
     BloodBankResponse addBloodBank(@Valid BloodBankRequest bloodBankRequest);
-    List<BloodBankResponse> findAllBank();
+    List<BloodBankResponse> findAllBloodBankByCity(List<String> city);
     BloodBankResponse findBloodBankById( int bankId);
     BloodBankResponse updateBloodBankById( int bankId, BloodBankRequest bloodBankRequest);
     BloodBankResponse addAdminBank(BloodBankRequest bloodBankRequest, int adminId );

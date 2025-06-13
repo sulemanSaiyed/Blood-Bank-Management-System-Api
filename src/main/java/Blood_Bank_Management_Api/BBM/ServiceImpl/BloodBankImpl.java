@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -44,13 +45,13 @@ private BloodBank mapToBloodABnk(BloodBankRequest bloodBankRequest, BloodBank bl
     return mapToBloodABnkResponse(bloodBank) ;
 }
     @Override
-    public List<BloodBankResponse> findAllBank(){
-       List<BloodBank>bloodBank=bloodBankRepository.findAll();
+    public List<BloodBankResponse> findAllBloodBankByCity(List<String>city){
+       List<BloodBank>bloodBank=bloodBankRepository.findByAddress_CityIn(city);
         if(bloodBank.isEmpty()){
-            throw new BloodBankNotFoundByIDException("Failed to find blood banks in database");
-        } else { return bloodBank.stream()
+            throw new RuntimeException("Failed to find blood banks in database");
+        }  return bloodBank.stream()
                 .map(this::mapToBloodABnkResponse)
-                .toList();
+                .collect(Collectors.toList());
     }}
 
 
