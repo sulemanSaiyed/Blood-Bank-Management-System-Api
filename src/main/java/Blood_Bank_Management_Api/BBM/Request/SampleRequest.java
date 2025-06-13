@@ -15,5 +15,6 @@ public class SampleRequest {
     private BloodGroup bloodGroup;
     private int quantity;
     private boolean availability;
-    private int emergencyUnits;
-    private int availableUnits;}
+//    private int emergencyUnits;
+//    private int availableUnits;
+}

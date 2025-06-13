@@ -38,8 +38,7 @@ public class SampleServiceImpl implements SampleService {
         sample.setBloodGroup(sampleRequest.getBloodGroup());
         sample.setQuantity(sampleRequest.getQuantity());
         sample.setAvailability(sampleRequest.isAvailability());
-        sample.setEmergencyUnits(sampleRequest.getEmergencyUnits());
-        sample.setAvailableUnits(sampleRequest.getAvailableUnits());
+
         return sample;
     }
 
@@ -88,10 +87,20 @@ public class SampleServiceImpl implements SampleService {
                 .bloodGroup(sampleRequest.getBloodGroup())
                 .quantity(sampleRequest.getQuantity())
                 .availability(sampleRequest.isAvailability())
-                .emergencyUnits(sampleRequest.getEmergencyUnits())
-                .availableUnits(sampleRequest.getAvailableUnits())
-                .build();
 
+                .build();
+        int emergencyUnitCount = bloodBank.getEmergencyUnitCount();
+        int requestedQuantity = sampleRequest.getQuantity();
+
+        if (requestedQuantity >= emergencyUnitCount) {
+            // If the requested quantity is greater than or equal to the emergency unit count
+            sample.setEmergencyUnits(emergencyUnitCount);
+            sample.setAvailableUnits(requestedQuantity - emergencyUnitCount);
+        } else {
+            // If the requested quantity is less than the emergency unit count
+            sample.setEmergencyUnits(requestedQuantity);
+            sample.setAvailableUnits(emergencyUnitCount - requestedQuantity);
+        }
         sampleRepository.save(sample);
         return mapToSampleResponse(sample);
     }

@@ -36,10 +36,10 @@ public class BloodBankController {
     }
 
     @GetMapping("/blood-banks")
-    public ResponseEntity<ResponseStructure<List<BloodBankResponse>>> findAllBloodBank(){
-        List<BloodBankResponse> bankResponse = bankService.findAllBank();
-        return responseBuilder.success(HttpStatus.FOUND, "BloodBanks Found", bankResponse);
-    }
+    public ResponseEntity<ResponseStructure<List<BloodBankResponse>>> findAllBloodBankByCity(@RequestParam List<String> city){
+        List<BloodBankResponse> bankResponse = bankService.findAllBloodBankByCity(city);
+        return responseBuilder.success(HttpStatus.FOUND, "BloodBanks Found", bankResponse);}
+
     @PreAuthorize("hasAnyAuthority('OWNER_ADMIN') ")
     @PutMapping("/bloodbanks/{bankId}")
     public ResponseEntity<ResponseStructure<BloodBankResponse>> updateBloodBankById(@PathVariable int bankId, @RequestBody @Valid BloodBankRequest bankRequest){

@@ -52,7 +52,7 @@ private BloodBank mapToBloodABnk(BloodBankRequest bloodBankRequest, BloodBank bl
         }  return bloodBank.stream()
                 .map(this::mapToBloodABnkResponse)
                 .collect(Collectors.toList());
-    }}
+    }
 
 
     @Override
