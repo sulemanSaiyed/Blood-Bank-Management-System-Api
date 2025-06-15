@@ -21,9 +21,11 @@ public class BloodBank {
     private String bankName;
     private int emergencyUnitCount;
 
-    @OneToMany
+    @OneToMany(mappedBy = "bloodBank")
     private List<Admin> admin;
     @OneToOne
     private Address address;
 
+    @OneToMany(mappedBy = "bloodBank")
+    private List<Sample> samples;
 }

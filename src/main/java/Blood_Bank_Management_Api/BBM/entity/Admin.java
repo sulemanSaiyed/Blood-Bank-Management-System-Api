@@ -22,6 +22,11 @@ public class Admin {
     @OneToOne
     private User user;
 
+    @ManyToOne
+    private BloodBank bloodBank;
+
+    @ManyToOne
+    private Hospital hospital;
 //
 //    @Enumerated(EnumType.STRING)
 //    private AdminType adminType;

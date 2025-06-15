@@ -64,7 +64,7 @@ public class AddressController {
         return responseBuilder.success(HttpStatus.OK, "User Address Retrieved", addressResponse);
     }
 
-    @PreAuthorize("hasAnyAuthority('OWNER_ADMIN', 'GUEST_ADMIN')")Add commentMore actions
+    @PreAuthorize("hasAnyAuthority('OWNER_ADMIN', 'GUEST_ADMIN')")
     @GetMapping("/address-hospital/{hospitalId}")
     public ResponseEntity<ResponseStructure<AddressResponse>> findHospitalAddress(@PathVariable int hospitalId) {
         AddressResponse addressResponse = addressService.findHospitalAddress(hospitalId);
@@ -77,4 +77,4 @@ public class AddressController {
         AddressResponse addressResponse = addressService.findBloodBankAddress(bloodbankId);
         return responseBuilder.success(HttpStatus.OK, "Blood Bank Address Retrieved", addressResponse);
     }
-    }}
+    }

@@ -1,6 +1,7 @@
 package Blood_Bank_Management_Api.BBM.entity;
 
 import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,9 +19,13 @@ public class Hospital {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private  int hospitalId;
     private String hospitalName;
-
-    @OneToMany
+   // @OneToMany(mappedBy = "hospital") check
+   // @OneToMany
+   @OneToMany(mappedBy = "hospital")
     private List<Admin> admin;
     @OneToOne
     private Address address;
+
+    @OneToMany(mappedBy = "hospital")
+    private List<Transaction> transaction;
 }

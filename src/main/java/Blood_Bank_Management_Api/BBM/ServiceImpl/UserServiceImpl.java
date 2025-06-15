@@ -62,7 +62,7 @@ private  final PasswordEncoder passwordEncoder;
     @Override
     public UserResponse addUser(UserRequest userRequest) {
         User user=this.mapToUser(userRequest, new User());
-        user.setRole(Role.USER);
+        user.setRole(Role.GUEST_ADMIN);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user=userRepository.save(user);
         return this.mapToUSerResponse(user);

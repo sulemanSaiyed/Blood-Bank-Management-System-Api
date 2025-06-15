@@ -42,4 +42,7 @@ public class User {
     private Admin admin;
     @OneToOne
     private Address address;
+
+    @OneToMany(mappedBy = "user")
+    private List<Transaction> transaction;
 }
