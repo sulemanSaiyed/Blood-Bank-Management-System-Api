@@ -64,17 +64,19 @@ return this.mapToHospitalResponse(hospital5);
 
     public HospitalResponse addAdminHospital(HospitalRequest hospitalRequest, int adminId){
 Admin admin=adminRepositry.findById(adminId).orElseThrow(()->new UserNotFoundExceptionById("admin not found"));
-        List<Admin>admins=new ArrayList<>();
-admins.add(admin);
+
 Hospital hospital=Hospital.builder()
-        .admin(admins)
         .hospitalName(hospitalRequest.getHospitalName())
-
         .build();
+        hospital = hospitalRepository.save(hospital);
+        List<Admin> admins = new ArrayList<>();
+        admins.add(admin);
+        hospital.setAdmin(admins);
 
-        hospital=hospitalRepository.save(hospital);
+        admin.setHospital(hospital);
+        adminRepositry.save(admin);
+
         return this.mapToHospitalResponse(hospital);
-
     }
 
 
