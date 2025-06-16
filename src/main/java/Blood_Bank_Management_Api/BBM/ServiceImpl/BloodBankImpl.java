@@ -8,6 +8,7 @@ import Blood_Bank_Management_Api.BBM.Service.BloodBanklService;
 import Blood_Bank_Management_Api.BBM.entity.Admin;
 import Blood_Bank_Management_Api.BBM.entity.BloodBank;
 import Blood_Bank_Management_Api.BBM.enums.AdminType;
+import Blood_Bank_Management_Api.BBM.enums.BloodGroup;
 import Blood_Bank_Management_Api.BBM.repository.AdminRepositry;
 import Blood_Bank_Management_Api.BBM.repository.BloodBankRepository;
 import jakarta.validation.Valid;
@@ -38,18 +39,13 @@ private BloodBank mapToBloodABnk(BloodBankRequest bloodBankRequest, BloodBank bl
     return bloodBank;
 }
 
-@Override
-   public BloodBankResponse addBloodBank( BloodBankRequest bloodBankRequest){
-    BloodBank bloodBank=mapToBloodABnk(bloodBankRequest, new BloodBank());
-    bloodBank=bloodBankRepository.save(bloodBank);
-    return mapToBloodABnkResponse(bloodBank) ;
-}
+
     @Override
-    public List<BloodBankResponse> findAllBloodBankByCity(List<String>city){
-       List<BloodBank>bloodBank=bloodBankRepository.findByAddress_CityIn(city);
-        if(bloodBank.isEmpty()){
-            throw new RuntimeException("Failed to find blood banks in database");
-        }  return bloodBank.stream()
+    public List<BloodBankResponse> findAllBloodBankByCity(List<String> city, BloodGroup bloodGroup) {
+        List<BloodBank> bloodBanks = bloodBankRepository.findByAddress_CityInAndSamples_BloodGroup(city, bloodGroup);
+        if(bloodBanks.isEmpty()){
+            throw new BloodBankNotFoundByIDException("No blood banks found in the provided cities and bloodGroup");
+        }  return bloodBanks.stream()
                 .map(this::mapToBloodABnkResponse)
                 .collect(Collectors.toList());
     }
@@ -71,16 +67,21 @@ return mapToBloodABnkResponse(updateBloodbank);
     @Override
     public BloodBankResponse addAdminBank(BloodBankRequest bloodBankRequest, int adminId ){
         Admin fetchedadmin=adminRepositry.findById(adminId).orElseThrow(()-> new UserNotFoundExceptionById("Admin not found"));
-        List<Admin>admins=new ArrayList<>();
-        admins.add(fetchedadmin);
+
         BloodBank bloodBank=BloodBank.builder()
-                .admin(admins)
+
                 .bankName(bloodBankRequest.getBankName())
                 .emergencyUnitCount(bloodBankRequest.getEmergencyUnitCount())
                 .build();
 
 
         bloodBankRepository.save(bloodBank);
+        List<Admin> admins = new ArrayList<>();
+        admins.add(fetchedadmin);
+        bloodBank.setAdmin(admins);
+
+        fetchedadmin.setBloodBank(bloodBank);
+        adminRepositry.save(fetchedadmin);
         return this.mapToBloodABnkResponse(bloodBank);
 }
 
