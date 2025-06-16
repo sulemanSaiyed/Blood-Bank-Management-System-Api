@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface BloodBankRepository extends JpaRepository<BloodBank, Integer> {
-    List<BloodBank> findByAddress_CityInAndSamples_BloodGroup(List<String> cities, BloodGroup bloodGroup);
+    List<BloodBank> findByAddress_CityInAndSamples_BloodGroupIn(List<String> cities, List<BloodGroup> bloodGroups);
 }
