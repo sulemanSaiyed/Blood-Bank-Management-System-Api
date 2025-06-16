@@ -4,6 +4,7 @@ package Blood_Bank_Management_Api.BBM.Controller;
 import Blood_Bank_Management_Api.BBM.Request.BloodBankRequest;
 import Blood_Bank_Management_Api.BBM.Response.BloodBankResponse;
 import Blood_Bank_Management_Api.BBM.Service.BloodBanklService;
+import Blood_Bank_Management_Api.BBM.enums.BloodGroup;
 import Blood_Bank_Management_Api.BBM.utility.ResponseStructure;
 import Blood_Bank_Management_Api.BBM.utility.RestResponseBuilder;
 import jakarta.validation.Valid;
@@ -23,10 +24,11 @@ public class BloodBankController {
     private RestResponseBuilder responseBuilder;
 
     @PreAuthorize("hasAnyAuthority('OWNER_ADMIN')")
-    @PostMapping("/bloodbanks")
-    public ResponseEntity<ResponseStructure<BloodBankResponse>> addBloodBank(@RequestBody @Valid BloodBankRequest bankRequest){
-        BloodBankResponse bankResponse = bankService.addBloodBank(bankRequest);
-        return responseBuilder.success(HttpStatus.CREATED, "BloodBank Created", bankResponse);
+
+    @PostMapping("/bloodbanks-admin/{adminId}")
+    public ResponseEntity<ResponseStructure<BloodBankResponse>> addAdminBank(@RequestBody BloodBankRequest bankRequest, @PathVariable int adminId){
+        BloodBankResponse bankResponse = bankService.addAdminBank(bankRequest, adminId);
+        return responseBuilder.success(HttpStatus.CREATED, "Blood Bank Admin Created", bankResponse);
     }
 
     @GetMapping("/bloodbanks/{bankId}")
@@ -36,8 +38,8 @@ public class BloodBankController {
     }
 
     @GetMapping("/blood-banks")
-    public ResponseEntity<ResponseStructure<List<BloodBankResponse>>> findAllBloodBankByCity(@RequestParam List<String> city){
-        List<BloodBankResponse> bankResponse = bankService.findAllBloodBankByCity(city);
+    public ResponseEntity<ResponseStructure<List<BloodBankResponse>>> findAllBloodBankByCity(@RequestParam List<String> city, @RequestParam BloodGroup bloodGroup){Add commentMore actions
+        List<BloodBankResponse> bankResponse = bankService.findAllBloodBankByCity(city, bloodGroup);
         return responseBuilder.success(HttpStatus.FOUND, "BloodBanks Found", bankResponse);}
 
     @PreAuthorize("hasAnyAuthority('GUEST_ADMIN') ")
@@ -46,10 +48,5 @@ public class BloodBankController {
         BloodBankResponse bankResponse = bankService.updateBloodBankById(bankId, bankRequest);
         return responseBuilder.success(HttpStatus.FOUND, "BloodBank Updated", bankResponse);
     }
-    @PreAuthorize("hasAnyAuthority('OWNER_ADMIN')")
-    @PostMapping("/bloodbanks-admin/{adminId}")
-    public ResponseEntity<ResponseStructure<BloodBankResponse>> addAdminBank(@RequestBody BloodBankRequest bankRequest, @PathVariable int adminId){
-        BloodBankResponse bankResponse = bankService.addAdminBank(bankRequest, adminId);
-        return responseBuilder.success(HttpStatus.CREATED, "Blood Bank Admin Created", bankResponse);
-    }
+
 }
